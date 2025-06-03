@@ -405,6 +405,11 @@ func buildTestEnvironment() { //nolint:funlen,gocyclo
 		}
 	}
 
+	afterData := autodiscover.DoAutoDiscover(&config)
+	if len(env.Pods) != len(afterData.Pods) {
+		log.Warn("Number of pods has changed - %q pods were detected before installation, and now there are %q.", len(env.Pods), len(afterData.Pods))
+	}
+
 	log.Info("Completed the test environment build process in %.2f seconds", time.Since(start).Seconds())
 }
 
